@@ -3,19 +3,28 @@ import * as math from 'mathjs';
 import ResultComponent from './components/ResultComponent';
 import KeyPadComponent from './components/KeyPadComponent';
 
+// use eslinter
+// use prettier
+
 class App extends Component {
+
   state = { value: '' };
+
+  //
   inputValue = event => {
     this.setState({ value: this.state.value + event.target.value });
   };
+  // 
   result = () => {
-    
     this.setState({ value: math.eval(this.state.value) });
   };
+  //
   clearValue = () => {
     this.setState({ value: '' });
   };
+
   render() {
+    // scss module
     const alignCalculator = {
       height: '100vh',
       widht: '250px',
@@ -23,6 +32,7 @@ class App extends Component {
       flexDirection: 'column',
       alignItems: 'center'
     };
+  
     return (
       <div id='container' style={alignCalculator}>
         <ResultComponent value={this.state.value} />

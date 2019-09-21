@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 class KeyPadComponent extends Component {
   render() {
+
+    // use scss 
+    // use scss (css) modules
+
     const rowStyle = {
       display: 'flex',
       width: '250px',
@@ -12,6 +16,7 @@ class KeyPadComponent extends Component {
       width: '25%',
       textAlign: 'right'
     };
+  
     const { inputValue, clearValue, result } = this.props;
     return (
       <div>
