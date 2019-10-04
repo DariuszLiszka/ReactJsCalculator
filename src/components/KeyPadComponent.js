@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 class KeyPadComponent extends Component {
   render() {
     const rowStyle = {
@@ -16,69 +17,159 @@ class KeyPadComponent extends Component {
     return (
       <div>
         <p style={rowStyle}>
-          <button style={box} type='button' value='(' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='('
+            onClick={this.props.inputChanged}
+          >
             (
           </button>
-          <button style={box} type='button' value=')' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value=')'
+            onClick={this.props.inputChanged}
+          >
             )
           </button>
-          <button style={box} type='button' value='%' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='%'
+            onClick={this.props.inputChanged}
+          >
             %
           </button>
-          <button style={box} type='button' onClick={clearValue}>
+          <button style={box} type='button' onClick={this.props.clear}>
             cl
           </button>
         </p>
         <p style={rowStyle}>
-          <button style={box} type='button' value='1' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='1'
+            onClick={this.props.inputChanged}
+          >
             1
           </button>
-          <button style={box} type='button' value='2' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='2'
+            onClick={this.props.inputChanged}
+          >
             2
           </button>
-          <button style={box} type='button' value='3' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='3'
+            onClick={this.props.inputChanged}
+          >
             3
           </button>
-          <button style={box} type='button' value='/' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='/'
+            onClick={this.props.inputChanged}
+          >
             /
           </button>
         </p>
         <p style={rowStyle}>
-          <button style={box} type='button' value='4' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='4'
+            onClick={this.props.inputChanged}
+          >
             4
           </button>
-          <button style={box} type='button' value='5' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='5'
+            onClick={this.props.inputChanged}
+          >
             5
           </button>
-          <button style={box} type='button' value='6' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='6'
+            onClick={this.props.inputChanged}
+          >
             6
           </button>
-          <button style={box} type='button' value='*' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='*'
+            onClick={this.props.inputChanged}
+          >
             *
           </button>
         </p>
         <p style={rowStyle}>
-          <button style={box} type='button' value='7' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='7'
+            onClick={this.props.inputChanged}
+          >
             7
           </button>
-          <button style={box} type='button' value='8' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='8'
+            onClick={this.props.inputChanged}
+          >
             8
           </button>
-          <button style={box} type='button' value='9' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='9'
+            onClick={this.props.inputChanged}
+          >
             9
           </button>
-          <button style={box} type='button' value='+' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='+'
+            onClick={this.props.inputChanged}
+          >
             +
           </button>
         </p>
         <p style={rowStyle}>
-          <button style={box} type='button' value='0' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='0'
+            onClick={this.props.inputChanged}
+          >
             0
           </button>
-          <button style={box} type='button' value='.' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='.'
+            onClick={this.props.inputChanged}
+          >
             .
           </button>
-          <button style={box} type='button' value='-' onClick={inputValue}>
+          <button
+            style={box}
+            type='button'
+            value='-'
+            onClick={this.props.inputChanged}
+          >
             -
           </button>
           <button style={box} type='button' value='=' onClick={result}>
@@ -90,5 +181,36 @@ class KeyPadComponent extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    inputValue: state.inputValue
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    inputChanged: event => {
+      const action = {
+        type: 'INPUT',
+        payload: { inputValue: event.target.value }
+      };
+      dispatch(action);
+    },
+    result: () => {
+      const action = {
+        type: 'RESULT'
+      };
+      dispatch(action);
+    },
+    clear: () => {
+      const action = {
+        type: 'CLEAR'
+      };
+      dispatch(action);
+    }
+  };
+};
 
-export default KeyPadComponent;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(KeyPadComponent);

@@ -2,19 +2,9 @@ import React, { Component } from 'react';
 import * as math from 'mathjs';
 import ResultComponent from './components/ResultComponent';
 import KeyPadComponent from './components/KeyPadComponent';
-
+import { Provider } from 'react-redux';
+import store from './store';
 class App extends Component {
-  state = { value: '' };
-  inputValue = event => {
-    this.setState({ value: this.state.value + event.target.value });
-  };
-  result = () => {
-    
-    this.setState({ value: math.eval(this.state.value) });
-  };
-  clearValue = () => {
-    this.setState({ value: '' });
-  };
   render() {
     const alignCalculator = {
       height: '100vh',
@@ -24,14 +14,13 @@ class App extends Component {
       alignItems: 'center'
     };
     return (
-      <div id='container' style={alignCalculator}>
-        <ResultComponent value={this.state.value} />
-        <KeyPadComponent
-          inputValue={this.inputValue}
-          result={this.result}
-          clearValue={this.clearValue}
-        />
-      </div>
+      <Provider store={store}>
+        {console.log(store)}
+        <div id='container' style={alignCalculator}>
+          <ResultComponent />
+          <KeyPadComponent />
+        </div>
+      </Provider>
     );
   }
 }
